@@ -1,11 +1,11 @@
 @font-face {
   font-family: PFDinTextCondPro;
-  src: url(PFDinTextCondPro-Regular.ttf);
+  src: url("http://www.sinch.com/wp-content/themes/sinch/fonts/pfdintextcondpro-regular-webfont.woff");
 }
 
 @font-face {
   font-family: PFDinTextPro;
-  src: url(PFDinTextPro-Regular.otf);
+  src: url("http://www.sinch.com/wp-content/themes/sinch/fonts/pfdintextpro-light-webfont.woff");
 }
 
 body {
