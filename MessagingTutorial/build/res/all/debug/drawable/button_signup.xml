@@ -1,0 +1,3 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/signup"/>
+</selector><!-- From: file:/Users/jordan/Documents/workspace/MessagingTutorial/MessagingTutorial/src/main/res/drawable/button_signup.xml -->

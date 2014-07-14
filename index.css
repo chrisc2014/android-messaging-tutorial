@@ -1,0 +1,85 @@
+@font-face {
+  font-family: PFDinTextCondPro;
+  src: url(PFDinTextCondPro-Regular.ttf);
+}
+
+@font-face {
+  font-family: PFDinTextPro;
+  src: url(PFDinTextPro-Regular.otf);
+}
+
+body {
+  width: 800px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-family: PFDinTextPro;
+  color: #636363;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+h2 {
+  font-family: PFDinTextCondPro;
+  color: #63029d;
+  font-size: 50px;
+  letter-spacing: 2px;
+  line-height: 48px;
+}
+
+a {
+  color: #63029d;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #8235b1;
+  cursor: pointer;
+}
+
+pre {
+  font-size: 16px;
+  background-color: #fffad2;
+  display: inline-block;
+  padding: 25px;
+  border-radius: 3px;
+  border: 3px solid #fff3ab;
+  width: 750px;
+}
+
+img {
+  padding: 40px 0px;
+}
+
+#screenshot-1, #screenshot-2, #screenshot-3 {
+  width: 260px;
+}
+
+#clone-in-desktop {
+  display: block;
+  margin: auto;
+}
+
+#import-project {
+  width: 500px;
+  display: block;
+  margin: auto;
+}
+
+#list-users-screenshot {
+  width: 260px;
+  display: block;
+  margin: auto;
+}
+
+#new-activity-1, #new-activity-2, #add-test-users {
+  width: 700px;
+  display: block;
+  margin: auto;
+}
+
+#list-users-activity-blank {
+  width: 300px;
+  display: block;
+  margin: auto;
+}
