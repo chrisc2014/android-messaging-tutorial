@@ -544,21 +544,27 @@ serviceIntent = new Intent(LoginActivity.this, MessageService.class);</pre>
       <pre>startService(serviceIntent);
 startActivity(intent);</pre>
 
-      <p>At this point, you can run your app and the service will start. It might be helpful to add some debugging output in onStartCommand to make sure that it is actually getting called.</p>
+      <p>At this point, you can run your app and the service will start. It might be helpful
+          to add some debugging output in onStartCommand to make sure that it is actually
+          getting called.</p>
       
       <h2>THE MESSAGING ACTIVITY</h2>
       
-      <p>In this section, we are going to create and implement the messaging activity. You will end up with a screen that looks like this:</p>
+      <p>In this section, we are going to create and implement the messaging activity.
+          You will end up with a screen that looks like this:</p>
       
       <p>(screenshot of messaging conversation)</p>
       
-      <p>I'll remind you that the layouts and graphics to create this view are already included in your skeleton project.</p>
+      <p>I'll remind you that the layouts and graphics to create this view are already
+          included in your skeleton project.</p>
       
-      <p>To create MessagingActivity, right click on the folder with your package name, and select 'New' --> 'Java Class'</p>
+      <p>To create MessagingActivity, right click on the folder with your package name,
+          and select 'New' --> 'Java Class'</p>
       
-      <p>(screenshot of creating a new class)</p>
+      <img src="new-class.png" id="new-class">
       
-      <p>To start, just create an empty class with an empty onCreate method:</p>
+      <p>To start, write a basic onCreate method that will load the messaging
+          layout (included in skeleton project).</p>
       
       <pre>public class MessagingActivity extends Activity {
     @Override
@@ -572,18 +578,26 @@ startActivity(intent);</pre>
       
       <pre>&lt;activity android:name=".MessagingActivity"&gt;&lt;/activity&gt;</pre>
 
-      <p>Now we can go back to ListUsersActivity and fill-in the logic to open a conversation with the user that was clicked on. We left a not for ourselves that says "Look up user id and open conversation." In place of that comment, call a new method that we're going to call openConverstaion.</p>
+      <p>Now we can go back to ListUsersActivity and fill-in the logic to open a conversation
+          with the user that was clicked on. We left a note for ourselves that says "Look up
+          user id and open conversation." In place of that comment, call a new method that
+          we're going to call openConversation, and pass in the array of names and position
+          that was clicked.</p>
 
-      <pre>openConversation(i)</pre>
+      <pre>openConversation(names, i)</pre>
       
       <p>And define the method:</p>
       
-      <pre>public void openConversation(ArrayList<String> names, int pos) {
-      //This method takes an array of the names from the list, and the integer of what position was clicked 
-}
-      </pre>
+      <pre>
+public void openConversation(ArrayList<String> names, int pos) {
+    //This method takes an array of the names from the list,
+    //and the integer of what position was clicked
+}</pre>
       
-      <p>We will use a parse query to look up the user id based on the username we have. The following code will get the username that was clicked on, and then look up which ParseUser has that username. If it returns with no errors, we will (just for now) display a toast message with the username and user id.</p>
+      <p>We will use a parse query to look up the user id based on the username we have.
+          The following code will get the username that was clicked on, and then look up
+          which ParseUser has that username. If it returns with no errors, we will (just
+          for now) display a toast message with the username and user id.</p>
       
       <pre>ParseQuery&lt;ParseUser&gt; query = ParseUser.getQuery();
 query.whereEqualTo("username", names.get(pos));
@@ -604,20 +618,19 @@ query.findInBackground(new FindCallback<ParseUser>() {
 
       <p>Run your app and try clicking on names to make sure everything is working properly.</p>
       
-      <p>Now, let's start MessagingActivity and pass along the id of who we want to message with. Put the following in place of the temporary toast message from above:</p>
+      <p>Now, let's start MessagingActivity and pass along the id of who we want to message
+          with. Put the following in place of the temporary toast message from above:</p>
       
       <pre>Intent intent = new Intent(getApplicationContext(), MessagingActivity.class);
 intent.putExtra("RECIPIENT_ID", user.get(0).getObjectId());
 startActivity(intent);</pre>
       
-      <p>Things are starting to get exciting! If you run your app now, clicking on a user's name will open a blank messaging conversation.</p>
+      <p>Things are starting to get exciting! If you run your app now, clicking on a
+          user's name will open a blank messaging conversation like this:</p>
+
+      <img src="empty-messaging.png" id="empty-messaging" />
     </body>
 </html>
-    
-  
-<!--
-  - get started on sinch client stuff
--->
 
 
 

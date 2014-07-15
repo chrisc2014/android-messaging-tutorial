@@ -90,3 +90,9 @@ img {
   display: block;
   margin: auto;
 }
+
+#new-class {
+  width: 650px;
+  display: block;
+  margin: auto;
+}
