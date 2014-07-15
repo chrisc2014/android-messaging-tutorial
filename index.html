@@ -313,14 +313,34 @@ private ListView usersListView;</pre>
 
   <p>Now, we are going to make the list of users clickable. If you click on the name of a user,
       we want it to open a private instant messaging conversation with them.</p>
-    
+
+  <p>To make the list clickable, we are going to use the method setOnItemClickListener. For now,
+      we will just display a toast message when an item is clicked. We'll go back in a few
+      minutes and add the logic to open a conversation. Add the following block of code in
+      setConversationsList, after populating the list, only if populating the list succeeds:</p>
+
+  <pre>usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> a, View v, int i, long l) {
+        Toast.makeText(getApplicationContext(),
+            "You clicked on user: " + i,
+                Toast.LENGTH_SHORT).show();
+        //Look up user id & open conversation
+    }
+});</pre>
+
+    <p>Run your app and click on a few different names to make sure that the correct toast
+        message is displayed.</p>
+
+    <h2>SETTING UP THE SINCH CLIENT</h2>
+
+    <p>We want to start the Sinch messaging service right after after the user logs in, so that
+    users are registered with Sinch right away.</p>
   </body>
 </html>
     
   
 <!--
-  - make list of users clickable
-
   - get started on sinch client stuff
 -->
 
