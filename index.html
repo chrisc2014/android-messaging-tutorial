@@ -510,9 +510,41 @@ private ListView usersListView;</pre>
 
       <img src="app-key-and-secret.png" id="app-key-and-secret" />
 
-      <p>Next, declare MessageService in your AndroidManifest.xml. Put this line inside the &lt;application&gt; tag:</p>
+      <p>Next, declare MessageService in your AndroidManifest.xml. Put this line inside
+          the &lt;application&gt; tag:</p>
 
       <pre>&lt;service android:name=".MessageService"&gt;&lt;/service&gt;</pre>
+
+      <p>Now, we are going to start the service from LoginActivity. In the three possible places to
+          start ListUsersActivity, we want to also start the message service. (Refresher - these
+          three places are if a user is already logged in, if they log in, or if they sign up.) It
+          should now look like so:</p>
+
+      <pre>Intent serviceIntent = new Intent(getApplicationContext(),
+                            ListUsersActivity.class);
+startService(serviceIntent);
+Intent intent = new Intent(getApplicationContext(), ListUsersActivity.class)
+startActivity(intent);</pre>
+
+      <p>You'll notice that this code is quite repetitive. In the finished project, I have
+          refactored this code to reduce repitition, but it is not necessary for your app to work.
+          If you want to do what I did, declare intent and serviceIntent inside loginActivity:</p>
+
+      <pre>private Intent intent;
+private Intent serviceIntent;</pre>
+
+      <p>Then, define the variables in onCreate:</p>
+
+      <pre>intent = new Intent(getApplicationContext(),
+             ListUsersActivity.class);
+serviceIntent = new Intent(LoginActivity.this, MessageService.class);</pre>
+
+      <p>Lastly, change the code in those original three places to be just this:</p>
+
+      <pre>startService(serviceIntent);
+startActivity(intent);</pre>
+
+
 
     </body>
 </html>
