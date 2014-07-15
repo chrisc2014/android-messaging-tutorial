@@ -19,14 +19,14 @@
 
     <p>If you get stuck at any point, the completed source code for this tutorial is available
         on our <a href="http://addlink" target="_blank">Github</a>.</p>
-    
+
     <h2>GETTING STARTED</h2>
-    
+
     <p>To get the ball rolling, we've created a skeleton project that you can clone from this
         <a href="http://addlink" target="_blank">Github repository</a>. Once you've cloned
         the project, you will need to import it into Android Studio and make sure everything
         is working properly.</p>
-    
+
       <img src="import-project.png" id="import-project" alt="screenshot of importing a project" />
 
     <p>The skeleton project will save you from creating a new project in Android Studios,
@@ -334,9 +334,187 @@ private ListView usersListView;</pre>
 
     <h2>SETTING UP THE SINCH CLIENT</h2>
 
-    <p>We want to start the Sinch messaging service right after after the user logs in, so that
-    users are registered with Sinch right away.</p>
-  </body>
+    <p>In this section, I will walk you creating an app on the Sinch dashboard, downloading the
+        Sinch SDK, and starting the message service when a user logs in.</p>
+
+    <p>Start by heading over to the <a href="http://www.sinch.com/dashboard/#/apps">Sinch
+        dashboard</a>. If you don't yet have an account, you will be prompted to sign up. In the
+        top right corner of the page, there is a 'Create new app' button; click this. Name your
+        app anything you want, and leave the rest blank.</p>
+
+    <img src="create-app.png" id="create-app" />
+
+    <p>Next, you will need to download the latest SDK for Android from here:
+        <a href="http://www.sinch.com/downloads/">www.sinch.com/downloads</a></p>
+
+    <p>Once it has finished downloading, unpack the zip file and open the libs folder.
+        Copy the two .jar files to your libs directory, highlight them both, right click,
+        and choose 'add as library.' Then, create a new folder under src/main named jniLibs.
+        Move the armeabi and armeabi-v7a folders into jniLibs.</p>
+
+    <p>Now, create a new class named MessageService. This class will be in charge of starting and
+        stopping the Sinch client. I'm about to give you a whole lot of copy and paste code to put
+        in MessageService.java. I explain the important methods in the comments:</p>
+
+    <pre>public class MessageService extends Service implements SinchClientListener {
+
+    //App key and app secret are in your Sinch dashboard
+    //Explanatory screenshot below
+    private static final String APP_KEY = "YOUR_APP_KEY";
+    private static final String APP_SECRET = "YOUR_APP_SECRET";
+    private static final String ENVIRONMENT = "sandbox.sinch.com";
+    private final MessageServiceInterface serviceInterface =
+        new MessageServiceInterface();
+    private SinchClient sinchClient = null;
+    private MessageClient messageClient = null;
+    private String currentUserId;
+
+    public class MessageServiceInterface extends Binder {
+        public void sendMessage(String recipientUserId, String textBody) {
+            MessageService.this.sendMessage(recipientUserId, textBody);
+        }
+
+        public void addMessageClientListener(MessageClientListener listener) {
+            MessageService.this.addMessageClientListener(listener);
+        }
+
+        public void removeMessageClientListener(MessageClientListener listener) {
+            MessageService.this.removeMessageClientListener(listener);
+        }
+    }
+
+    //Called when we bind this to an activity (we'll get there soon)
+    @Override
+    public IBinder onBind(Intent intent) {
+        return serviceInterface;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        stop();
+        stopSelf();
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        stop();
+        super.onDestroy();
+    }
+
+    //Gets called when we start the service from LoginActivity
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        //Get the current user id
+        currentUserId = ParseUser.getCurrentUser().getObjectId().toString();
+
+        if (currentUserId != null && !isSinchClientStarted()) {
+            startSinchClient(currentUserId);
+        }
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    //To check if the Sinch client is already started
+    private boolean isSinchClientStarted() {
+        return sinchClient != null && sinchClient.isStarted();
+    }
+
+    public void sendMessage(String recipientUserId, String textBody) {
+        if (messageClient != null) {
+            WritableMessage message =
+                new WritableMessage(recipientUserId, textBody);
+            messageClient.send(message);
+        }
+    }
+
+    public void addMessageClientListener(MessageClientListener listener) {
+        if (messageClient != null) {
+            messageClient.addMessageClientListener(listener);
+        }
+    }
+
+    public void removeMessageClientListener(MessageClientListener listener) {
+        if (messageClient != null) {
+            messageClient.removeMessageClientListener(listener);
+        }
+    }
+
+    //Start the Sinch client
+    public void startSinchClient(String userName) {
+        //Build the Sinch client with the current user id,
+        //app key, app secret, and environment host
+        sinchClient = Sinch.getSinchClientBuilder()
+                           .context(this)
+                           .userId(userName)
+                           .applicationKey(APP_KEY)
+                           .applicationSecret(APP_SECRET)
+                           .environmentHost(ENVIRONMENT)
+                           .build();
+
+        sinchClient.addSinchClientListener(this);
+
+        //This line is necessary to have messaging in our app!
+        sinchClient.setSupportMessaging(true);
+        sinchClient.setSupportActiveConnectionInBackground(true);
+
+        sinchClient.checkManifest();
+        sinchClient.start();
+    }
+
+    //Pretty self explanitory - stop the Sinch client
+    public void stop() {
+        if (isSinchClientStarted()) {
+            sinchClient.stop();
+            sinchClient.removeSinchClientListener(this);
+        }
+        sinchClient = null;
+    }
+
+    //Do you want your app to do something if starting the client fails?
+    @Override
+    public void onClientFailed(SinchClient client, SinchError error) {
+        sinchClient = null;
+    }
+
+    //Do you want your app to do something when the sinch client starts?
+    @Override
+    public void onClientStarted(SinchClient client) {
+        client.startListeningOnActiveConnection();
+        messageClient = client.getMessageClient();
+    }
+
+    //Do you want your app to do something when the sinch client stops?
+    @Override
+    public void onClientStopped(SinchClient client) {
+        sinchClient = null;
+    }
+
+    @Override
+    public void onLogMessage(int level, String area, String message) {
+        //Intentionally left blank. You will get errors if you
+        //try to remove this method.
+    }
+
+    @Override
+    public void onRegistrationCredentialsRequired(SinchClient client,
+                    ClientRegistration clientRegistration) {
+        //Intentionally left blank. You will get errors if you
+        //try to remove this method.
+    }
+}</pre>
+
+      <p>This is what it will look like when you get your app key and app secret from the
+          <a href="http://www.sinch.com/dashboard/#/apps">Sinch dashboard</a>:</p>
+
+      <img src="app-key-and-secret.png" id="app-key-and-secret" />
+
+      <p>Next, declare MessageService in your AndroidManifest.xml. Put this line inside the &lt;application&gt; tag:</p>
+
+      <pre>&lt;service android:name=".MessageService"&gt;&lt;/service&gt;</pre>
+
+    </body>
 </html>
     
   

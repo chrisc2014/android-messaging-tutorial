@@ -9,7 +9,7 @@
 }
 
 body {
-  width: 800px;
+  width: 850px;
   margin: auto;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -44,7 +44,8 @@ pre {
   padding: 25px;
   border-radius: 3px;
   border: 3px solid #fff3ab;
-  width: 750px;
+  width: 800px;
+  margin: 40px 0px;
 }
 
 img {
@@ -52,10 +53,10 @@ img {
 }
 
 #screenshot-1, #screenshot-2, #screenshot-3 {
-  width: 260px;
+  width: 270px;
 }
 
-#clone-in-desktop {
+#clone-in-desktop, #create-app {
   display: block;
   margin: auto;
 }
@@ -80,6 +81,12 @@ img {
 
 #list-users-activity-blank {
   width: 300px;
+  display: block;
+  margin: auto;
+}
+
+#app-key-and-secret {
+  width: 750px;
   display: block;
   margin: auto;
 }
