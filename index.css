@@ -96,3 +96,9 @@ img {
   display: block;
   margin: auto;
 }
+
+#empty-messaging {
+  width: 260px;
+  display: block;
+  margin:auto;
+}
