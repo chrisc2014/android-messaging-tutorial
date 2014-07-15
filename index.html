@@ -369,39 +369,6 @@ private ListView usersListView;</pre>
     private MessageClient messageClient = null;
     private String currentUserId;
 
-    public class MessageServiceInterface extends Binder {
-        public void sendMessage(String recipientUserId, String textBody) {
-            MessageService.this.sendMessage(recipientUserId, textBody);
-        }
-
-        public void addMessageClientListener(MessageClientListener listener) {
-            MessageService.this.addMessageClientListener(listener);
-        }
-
-        public void removeMessageClientListener(MessageClientListener listener) {
-            MessageService.this.removeMessageClientListener(listener);
-        }
-    }
-
-    //Called when we bind this to an activity (we'll get there soon)
-    @Override
-    public IBinder onBind(Intent intent) {
-        return serviceInterface;
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        stop();
-        stopSelf();
-        return super.onUnbind(intent);
-    }
-
-    @Override
-    public void onDestroy() {
-        stop();
-        super.onDestroy();
-    }
-
     //Gets called when we start the service from LoginActivity
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -414,31 +381,6 @@ private ListView usersListView;</pre>
         }
 
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    //To check if the Sinch client is already started
-    private boolean isSinchClientStarted() {
-        return sinchClient != null && sinchClient.isStarted();
-    }
-
-    public void sendMessage(String recipientUserId, String textBody) {
-        if (messageClient != null) {
-            WritableMessage message =
-                new WritableMessage(recipientUserId, textBody);
-            messageClient.send(message);
-        }
-    }
-
-    public void addMessageClientListener(MessageClientListener listener) {
-        if (messageClient != null) {
-            messageClient.addMessageClientListener(listener);
-        }
-    }
-
-    public void removeMessageClientListener(MessageClientListener listener) {
-        if (messageClient != null) {
-            messageClient.removeMessageClientListener(listener);
-        }
     }
 
     //Start the Sinch client
@@ -463,13 +405,9 @@ private ListView usersListView;</pre>
         sinchClient.start();
     }
 
-    //Pretty self explanitory - stop the Sinch client
-    public void stop() {
-        if (isSinchClientStarted()) {
-            sinchClient.stop();
-            sinchClient.removeSinchClientListener(this);
-        }
-        sinchClient = null;
+    //To check if the Sinch client is already started
+    private boolean isSinchClientStarted() {
+        return sinchClient != null && sinchClient.isStarted();
     }
 
     //Do you want your app to do something if starting the client fails?
@@ -491,6 +429,34 @@ private ListView usersListView;</pre>
         sinchClient = null;
     }
 
+    //Pretty self explanitory - stop the Sinch client
+    public void stop() {
+        if (isSinchClientStarted()) {
+            sinchClient.stop();
+            sinchClient.removeSinchClientListener(this);
+        }
+        sinchClient = null;
+    }
+
+    //Called when we bind this to an activity (we'll get there soon)
+    @Override
+    public IBinder onBind(Intent intent) {
+        return serviceInterface;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        stop();
+        stopSelf();
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        stop();
+        super.onDestroy();
+    }
+
     @Override
     public void onLogMessage(int level, String area, String message) {
         //Intentionally left blank. You will get errors if you
@@ -502,6 +468,40 @@ private ListView usersListView;</pre>
                     ClientRegistration clientRegistration) {
         //Intentionally left blank. You will get errors if you
         //try to remove this method.
+    }
+
+    public void sendMessage(String recipientUserId, String textBody) {
+        if (messageClient != null) {
+            WritableMessage message =
+                new WritableMessage(recipientUserId, textBody);
+            messageClient.send(message);
+        }
+    }
+
+    public void addMessageClientListener(MessageClientListener listener) {
+        if (messageClient != null) {
+            messageClient.addMessageClientListener(listener);
+        }
+    }
+
+    public void removeMessageClientListener(MessageClientListener listener) {
+        if (messageClient != null) {
+            messageClient.removeMessageClientListener(listener);
+        }
+    }
+
+    public class MessageServiceInterface extends Binder {
+        public void sendMessage(String recipientUserId, String textBody) {
+            MessageService.this.sendMessage(recipientUserId, textBody);
+        }
+
+        public void addMessageClientListener(MessageClientListener listener) {
+            MessageService.this.addMessageClientListener(listener);
+        }
+
+        public void removeMessageClientListener(MessageClientListener listener) {
+            MessageService.this.removeMessageClientListener(listener);
+        }
     }
 }</pre>
 
