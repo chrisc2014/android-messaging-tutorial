@@ -671,8 +671,8 @@ private void sendMessage() {
     }
 
     //Here is where we will actually send the message throught Sinch
-    Toast.makeText(this, "Sending message! recipientId: " + recipientId + " Message: "
-        + messageBody, Toast.LENGTH_LONG).show();
+    Toast.makeText(this, "Sending message! recipientId: " + recipientId
+        + " Message: " + messageBody, Toast.LENGTH_LONG).show();
     messageBodyField.setText("");
 }
       </pre>
@@ -712,14 +712,14 @@ public void onDestroy() {
     super.onDestroy();
 }</pre>
       
-      <p>All of this will only work if your activity implements ServiceConnection
+      <p>And all of this will only work if your activity implements ServiceConnection
           and MessageClientListener:</p>
       
       <pre>public class MessagingActivity extends Activity implements
                ServiceConnection, MessageClientListener</pre>
       
       <p>At this point, you will see a red squiggly line underneath the line you just changed.
-          If you hover over it, it will inform you of several method that MessagingActivity
+          If you hover over it, it will inform you of several methods that MessagingActivity
           must implement. Let's add those methods! Make sure to read through the comments to
           better understand what some of these methods do.</p>
       
@@ -751,13 +751,13 @@ public void onMessageFailed(MessageClient client, Message message,
 
 @Override
 public void onIncomingMessage(MessageClient client, Message message) {
-    //This is where we will update the UI
+    //Update the UI on an incoming message
 }
 
 @Override
 public void onMessageSent(MessageClient client, Message message,
                          String recipientId) {
-    //We will also update the UI here
+    //Update the UI on an outgoing message
 }
 
 @Override
@@ -778,9 +778,9 @@ public void onShouldSendPushData(MessageClient client, Message message,
     
     <img src="dashboard-one-sent-message.png" id="dashboard-one-sent-message" />
 
-    <p>You'll notice from the above screenshot that your test message has not been delivered. To watch
-        this message become received on the dashboard, log in to your app as the recipient of the test
-        message you sent. (This is probably the time to break out a second Android phone or emulator
+    <p>You'll notice from the above screenshot that your test message has not been delivered. For
+        this message to be delivered, log in to your app as the recipient of the test
+        message you sent. (This is probably a good time to break out a second Android phone or emulator
         to be able to test with two devices.) Give the dashboard a minute or two to get up-to-date,
         and you will see that your message has now been delivered!</p>
       
