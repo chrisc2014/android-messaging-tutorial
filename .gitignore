@@ -2,3 +2,5 @@ MessagingTutorial/
 MessagingTutorial.iml
 build/
 .idea/
+.DS_Store
+.gradle/
