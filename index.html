@@ -12,9 +12,9 @@
         any user. Your app will look similar to this:</p>
 
     <p>
-      <img src="screenshot-1.png" id="screenshot-1" />
-      <img src="screenshot-1.png" id="screenshot-2" />
-      <img src="screenshot-1.png" id="screenshot-3" />
+      <img src="images/screenshot-1.png" id="screenshot-1" />
+      <img src="images/screenshot-1.png" id="screenshot-2" />
+      <img src="images/screenshot-1.png" id="screenshot-3" />
     </p>
 
     <p>If you get stuck at any point, the completed source code for this tutorial is available
@@ -27,7 +27,7 @@
         the project, you will need to import it into Android Studio and make sure everything
         is working properly.</p>
 
-      <img src="import-project.png" id="import-project" alt="screenshot of importing a project" />
+      <img src="images/import-project.png" id="import-project" alt="screenshot of importing a project" />
 
     <p>The skeleton project will save you from creating a new project in Android Studios,
         and includes: a basic login activity, a login layout, and some graphics to make things
@@ -189,15 +189,15 @@ if (currentUser != null) {
         activity. This would probably be a good time to create that new activity! The next activity
         that users will go to is a list of all users using the app. It will look like this when we're done:</p>
     
-    <img src="screenshot-1.png" id="list-users-screenshot" />
+    <img src="images/screenshot-1.png" id="list-users-screenshot" />
     
     <p>To create our new activity, follow the steps on the screenshot below.</p>
     
-    <img src="new-activity-1.png" id="new-activity-1" />
+    <img src="images/new-activity-1.png" id="new-activity-1" />
     
     <p>We will name this actity ListUsersActivity, since it will show a list of all users.</p>
     
-    <img src="new-activity-2.png" id="new-activity-2" />
+    <img src="images/new-activity-2.png" id="new-activity-2" />
     
     <p>This will create two main files for you: ListUsersActiviy.java and activity_list_users.xml.
         It will also create a menu layout for you. We won't be using the menu file, so feel free to
@@ -228,12 +228,12 @@ startActivity(intent);</pre>
         (already logged in, log in, sign up). Since we don't have a log out button, uninstall the
         app if you want to log out. ListUsersActivity should look like this right now:</p>
     
-    <img src="list-users-activity-blank.png" id="list-users-activity-blank" />
+    <img src="images/list-users-activity-blank.png" id="list-users-activity-blank" />
     
     <p>This would be a good time to head time to your Parse data browser and manually add a few
         test users to populate our list.</p>
     
-    <img src="add-test-users.png" id="add-test-users" />
+    <img src="images/add-test-users.png" id="add-test-users" />
     
     <p>We want activity_list_users.xml to be a ListView, so replace the code currently in there
         with this:</p>
@@ -343,7 +343,7 @@ private ListView usersListView;</pre>
         top right corner of the page, there is a 'Create new app' button; click this. Name your
         app anything you want, and leave the rest blank.</p>
 
-    <img src="create-app.png" id="create-app" />
+    <img src="images/create-app.png" id="create-app" />
 
     <p>Next, you will need to download the latest SDK for Android from here:
         <a href="http://www.sinch.com/downloads/">www.sinch.com/downloads</a></p>
@@ -509,7 +509,7 @@ private ListView usersListView;</pre>
       <p>This is what it will look like when you get your app key and app secret from the
           <a href="http://www.sinch.com/dashboard/#/apps">Sinch dashboard</a>:</p>
 
-      <img src="app-key-and-secret.png" id="app-key-and-secret" />
+      <img src="images/app-key-and-secret.png" id="app-key-and-secret" />
 
       <p>Next, declare MessageService in your AndroidManifest.xml. Put this line inside
           the &lt;application&gt; tag:</p>
@@ -562,7 +562,7 @@ startActivity(intent);</pre>
       <p>To create MessagingActivity, right click on the folder with your package name,
           and select 'New' --> 'Java Class'</p>
       
-      <img src="new-class.png" id="new-class">
+      <img src="images/new-class.png" id="new-class">
       
       <p>To start, write a basic onCreate method that will load the messaging
           layout (included in skeleton project).</p>
@@ -629,7 +629,7 @@ startActivity(intent);</pre>
       <p>Things are starting to get exciting! If you run your app now, clicking on a
           user's name will open a blank messaging conversation like this:</p>
 
-      <img src="empty-messaging.png" id="empty-messaging" />
+      <img src="images/empty-messaging.png" id="empty-messaging" />
       
       <h2>SENDING MESSAGES</h2>
       
@@ -680,7 +680,7 @@ private void sendMessage() {
       <p>Try it out! As long as everything is working now, we can move on to binding
           MessagingActivity with MessageService so we can actually send and receive messages.</p>
     
-      <img src="message-thumbs-up.png" id="message-thumbs-up" />
+      <img src="images/message-thumbs-up.png" id="message-thumbs-up" />
       
       <p>Right after the layout gets set in onCreate, call the method doBind:</p>
       
@@ -776,7 +776,7 @@ public void onShouldSendPushData(MessageClient client, Message message,
         to see the fruits of your labor! Make sure the date range includes today, and you should
         see something like this (it may take a minute or so to show up on the dashboard):</p>
     
-    <img src="dashboard-one-sent-message.png" id="dashboard-one-sent-message" />
+    <img src="images/dashboard-one-sent-message.png" id="dashboard-one-sent-message" />
 
     <p>You'll notice from the above screenshot that your test message has not been delivered. For
         this message to be delivered, log in to your app as the recipient of the test
@@ -784,7 +784,7 @@ public void onShouldSendPushData(MessageClient client, Message message,
         to be able to test with two devices.) Give the dashboard a minute or two to get up-to-date,
         and you will see that your message has now been delivered!</p>
 
-    <img src="two-androids.png" id="two-androids" />
+    <img src="images/two-androids.png" id="two-androids" />
 
     <p>The last piece of functionality we have to tackle is displaying the messages.</p>
       
