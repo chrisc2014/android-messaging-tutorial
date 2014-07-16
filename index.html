@@ -633,18 +633,16 @@ startActivity(intent);</pre>
       
       <h2>SENDING MESSAGES</h2>
       
-      <p>We'll get started by getting the current user's id, as well as the intended recipient
-          from the intent. Add this code into your onCreate method:</p>
+      <p>We'll start by getting the recipientId from the intent.
+          Add this code into your onCreate method:</p>
       
       <pre>
-currentUserId = ParseUser.getCurrentUser().getObjectId().toString();
 Intent intent = getIntent();
 recipientId = intent.getStringExtra("RECIPIENT_ID");</pre>
 
-      <p>And of course don't forget to declare the variables currentUserId and recipientId:</p>
+      <p>And of course don't forget to declare recipientId:</p>
       
       <pre>
-private String currentUserId;
 private String recipientId;</pre>
 
       <p>Next, we want set up an onClickListener for the send button. So first, declare the send
