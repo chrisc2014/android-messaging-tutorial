@@ -67,7 +67,7 @@ img {
   margin: auto;
 }
 
-#list-users-screenshot {
+#list-users-screenshot, #empty-messaging, #message-thumbs-up {
   width: 260px;
   display: block;
   margin: auto;
@@ -97,8 +97,8 @@ img {
   margin: auto;
 }
 
-#empty-messaging {
-  width: 260px;
+#dashboard-one-sent-message {
+  width: 100%;
   display: block;
-  margin:auto;
+  margin: auto;
 }

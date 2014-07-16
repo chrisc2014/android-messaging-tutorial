@@ -250,7 +250,8 @@ startActivity(intent);</pre>
 &lt;/ListView&gt;</pre>
     
     <p>We also need to create an xml file to tell our app how to display each item of the list.
-        In the layout directory, create a new file and name it user_list_item.xml. It will contain only the following text view:</p>
+        In the layout directory, create a new file and name it user_list_item.xml.
+        It will contain only the following text view:</p>
     
     <pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -632,7 +633,8 @@ startActivity(intent);</pre>
       
       <h2>SENDING MESSAGES</h2>
       
-      <p>We'll get started by getting the current user's id, as well as the intended recipient from the intent. Add this code into your onCreate method:</p>
+      <p>We'll get started by getting the current user's id, as well as the intended recipient
+          from the intent. Add this code into your onCreate method:</p>
       
       <pre>
 currentUserId = ParseUser.getCurrentUser().getObjectId().toString();
@@ -645,7 +647,8 @@ recipientId = intent.getStringExtra("RECIPIENT_ID");</pre>
 private String currentUserId;
 private String recipientId;</pre>
 
-      <p>Next, we want set up an onClickListener for the send button. So first, declare the send button, and then define it in onCreate:</p>
+      <p>Next, we want set up an onClickListener for the send button. So first, declare the send
+          button, and then define it in onCreate:</p>
 
       <pre>
 private Button sendButton;
@@ -670,12 +673,14 @@ private void sendMessage() {
     }
 
     //Here is where we will actually send the message throught Sinch
-    Toast.makeText(this, "Sending message! recipientId: " + recipientId + " Message: " + messageBody, Toast.LENGTH_LONG).show();
+    Toast.makeText(this, "Sending message! recipientId: " + recipientId + " Message: "
+        + messageBody, Toast.LENGTH_LONG).show();
     messageBodyField.setText("");
 }
       </pre>
       
-      <p>Try it out! As long as everything is working now, we can move on to binding MessagingActivity with MessageService so we can actually send and recieve messages.</p>
+      <p>Try it out! As long as everything is working now, we can move on to binding
+          MessagingActivity with MessageService so we can actually send and receive messages.</p>
     
       <img src="message-thumbs-up.png" id="message-thumbs-up" />
       
@@ -683,7 +688,8 @@ private void sendMessage() {
       
       <pre>doBind();</pre>
       
-      <p>Which you will then define (as well as a doUnbind, to remove the messageClientListener and unbind the service):</p>
+      <p>Which you will then define (as well as a doUnbind, to remove the
+          messageClientListener and unbind the service):</p>
       
       <pre>
 private void doBind() {
@@ -698,7 +704,8 @@ private void doUnbind() {
     unbindService(this);
 }</pre>
 
-      <p>We want doUnbind to get called when when the activity is destroyed, so we will override that method:</p>
+      <p>We want doUnbind to get called when when the activity is destroyed,
+          so we will override that method:</p>
 
 <pre>      
 @Override
@@ -707,61 +714,77 @@ public void onDestroy() {
     super.onDestroy();
 }</pre>
       
-      <p>All of this will only work if your activity implements ServiceConnection and MessageClientListener:</p>
+      <p>All of this will only work if your activity implements ServiceConnection
+          and MessageClientListener:</p>
       
-      <pre>public class MessagingActivity extends Activity implements ServiceConnection, MessageClientListener</pre>
+      <pre>public class MessagingActivity extends Activity implements
+               ServiceConnection, MessageClientListener</pre>
       
-      <p>At this point, you will see a red squiggly line underneath the line you just changed. If you hover over it, it will inform you of several method that MessagingActiviy must implement. Let's add those methods! Make sure to read through the comments to better understand what some of these methods do.</p>
+      <p>At this point, you will see a red squiggly line underneath the line you just changed.
+          If you hover over it, it will inform you of several method that MessagingActivity
+          must implement. Let's add those methods! Make sure to read through the comments to
+          better understand what some of these methods do.</p>
       
       <pre>
-    @Override
-    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        //Define the messaging service and add a listener
-        messageService = (MessageService.MessageServiceInterface) iBinder;
-        messageService.addMessageClientListener(this);
-    }
+@Override
+public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+    //Define the messaging service and add a listener
+    messageService = (MessageService.MessageServiceInterface) iBinder;
+    messageService.addMessageClientListener(this);
+}
 
-    @Override
-    public void onServiceDisconnected(ComponentName componentName) {
-        messageService = null;
-    }
+@Override
+public void onServiceDisconnected(ComponentName componentName) {
+    messageService = null;
+}
 
-    @Override
-    public void onMessageDelivered(MessageClient client, MessageDeliveryInfo deliveryInfo) {
-        //Intentionally  left blank
-    }
+@Override
+public void onMessageDelivered(MessageClient client,
+                              MessageDeliveryInfo deliveryInfo) {
+    //Intentionally  left blank
+}
 
-    @Override
-    public void onMessageFailed(MessageClient client, Message message,
-                                MessageFailureInfo failureInfo) {
-        //Notify the user if message fails to send
-        Toast.makeText(this, "Message failed to send.", Toast.LENGTH_LONG).show();
-    }
+@Override
+public void onMessageFailed(MessageClient client, Message message,
+                            MessageFailureInfo failureInfo) {
+    //Notify the user if message fails to send
+    Toast.makeText(this, "Message failed to send.", Toast.LENGTH_LONG).show();
+}
 
-    @Override
-    public void onIncomingMessage(MessageClient client, Message message) {
-        //This is where we will update the UI
-    }
+@Override
+public void onIncomingMessage(MessageClient client, Message message) {
+    //This is where we will update the UI
+}
 
-    @Override
-    public void onMessageSent(MessageClient client, Message message, String recipientId) {
-        //We will also update the UI here
-    }
+@Override
+public void onMessageSent(MessageClient client, Message message,
+                         String recipientId) {
+    //We will also update the UI here
+}
 
-    @Override
-    public void onShouldSendPushData(MessageClient client, Message message, List<PushPair> pushPairs) {
-        //Intentionally left blank
-    }</pre>
+@Override
+public void onShouldSendPushData(MessageClient client, Message message,
+                                List<PushPair> pushPairs) {
+    //Intentionally left blank
+}</pre>
     
-    <p>At this point, we are ready to send the message! In MessagingActivity.sendMessage, remove the toast message that says the message has been sent, and add this:</p>
+    <p>At this point, we are ready to send the message! In MessagingActivity.sendMessage,
+        remove the toast message that says the message has been sent, and add this:</p>
     
     <pre>messageService.sendMessage(recipientId, messageBody);</pre>
     
-    <p>You're all ready to run! Open the app, send a message, and then head over to your Sinch dashboard: <a href="http://www.sinch.com/dashboard">www.sinch.com/dashboard</a> to see the fruits of your labor! Make sure the date range includes today, and you should see something like this (it may take a minute or so to show up on the dashboard):</p>
+    <p>You're all ready to run! Open the app, send a message, and then head over to your
+        Sinch dashboard: <a href="http://www.sinch.com/dashboard">www.sinch.com/dashboard</a>
+        to see the fruits of your labor! Make sure the date range includes today, and you should
+        see something like this (it may take a minute or so to show up on the dashboard):</p>
     
     <img src="dashboard-one-sent-message.png" id="dashboard-one-sent-message" />
-    
-    <p>Talk about the undelivered message and how to login to another test account and watch the message show that it was delivered.</p>
+
+    <p>You'll notice from the above screenshot that your test message has not been delivered. To watch
+        this message become received on the dashboard, log in to your app as the recipient of the test
+        message you sent. (This is probably the time to break out a second Android phone or emulator
+        to be able to test with two devices.) Give the dashboard a minute or two to get up-to-date,
+        and you will see that your message has now been delivered!</p>
       
     </body>
 </html>
