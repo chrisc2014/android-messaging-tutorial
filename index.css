@@ -91,7 +91,7 @@ img {
     margin: auto;
 }
 
-#new-class {
+.new-class {
     width: 650px;
     display: block;
     margin: auto;
