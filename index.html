@@ -208,11 +208,7 @@ if (currentUser != null) {
 
         <p>You'll also need to add ListUsersActivity to AndroidManifest.xml:</p>
     
-        <pre>
-&lt;activity
-    android:name=".ListUsersActivity"
-    android:label="@string/title_activity_list_users" &gt;
-&lt;/activity&gt;</pre>
+        <pre>&lt;activity android:name=".ListUsersActivity"&gt;&lt;/activity&gt;</pre>
     
         <p>The last bit of housekeeping before we use our new activity is to delete the boilerplate
             code that we won't be using. In ListUsersActivity.java, there are three methods: onCreate,
