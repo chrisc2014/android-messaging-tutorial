@@ -801,8 +801,101 @@ public void onShouldSendPushData(MessageClient client, Message message,
 
         <img src="images/two-androids.png" id="two-androids" />
 
-        <p>The last piece of functionality we have to tackle is displaying the messages.</p>
+        <p>The last piece of functionality we have to tackle is displaying the messages. To start, we will define the listView where we want to display the messaging conversation. Do this in the onCreate method of MessagingActivity:</p>
+        
+        <pre>
+private ListView messagesList;
+messagesList = (ListView) findViewById(R.id.listMessages);</pre>
+
+		<p>We want to build a custom adapter to display these messages, so we can use our cool message_right.xml and message_left.xml layouts. Create a new class and call it MessageAdapter. This extend the class BaseAdapter, which will help us display a beautiful list:</p>
+		
+		<pre>public class MessageAdapter extends BaseAdapter {}</pre>
+		
+		<p>There are several methods that we must implement in MessageAdapter, since we are extending BaseAdapter:</p>
+		
+		<pre>
+private List&lt;Pair&lt;Message, Integer&gt;&gt; messages;
+    private LayoutInflater layoutInflater;
+
+    public MessageAdapter(Activity activity) {
+        layoutInflater = activity.getLayoutInflater();
+        messages = new ArrayList&lt;Pair&lt;Message, Integer&gt;&gt;();
+    }
+
+    public void addMessage(Message message, int direction) {
+        messages.add(new Pair(message, direction));
+        notifyDataSetChanged();
+    }
+
+	//Returns how many messages are in the list
+    @Override
+    public int getCount() {
+        return messages.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return messages.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+		//This is where our custom logic to display message_right.xml and message_left.xml will go
+    	return convertView;
+    }</pre>
+        
+    	<p>Then, go back to MessagingActivity and tell our app that our custom adapter goes with the messageList view we defined:</p>
+    	
+    	<pre>        
+messageAdapter = new MessageAdapter(this);
+messagesList.setAdapter(messageAdapter);</pre>
+
+		<p>Only a few more steps! In onIncomingMessage and onOutgoingMessage, we want to call MessageAdapter.addMessage, which will add a message to our messages list, and update the UI.</p>
       
+    	<pre>
+//In onIncomingMessage
+messageAdapter.addMessage(message, MessageAdapter.DIRECTION_INCOMING);
+
+//In onOutgoingMessage
+messageAdapter.addMessage(message, MessageAdapter.DIRECTION_OUTGOING);</pre>
+
+	  	<p>You'll need to declare DIRECTION_INCOMING and DIRECTION_OUTGOING in MessageAdapter. The direction of each message will tell us whether we should use messaging_right.xml or messaging_left.xml</p>
+    
+    	<pre>
+public static final int DIRECTION_INCOMING = 0;
+public static final int DIRECTION_OUTGOING = 1;</pre>
+
+		<p>Lastly, let's tackle getView. This is where we put the logic for our custom adapter. First, get the direction (incoming or outgoing) of the message we're about to display. Then, choose either the right or left messaging bubble layout, and inflate it.</p>
+		
+		<pre>
+int direction = messages.get(i).second;
+
+if (convertView == null) {
+    int res = 0;
+    if (direction == DIRECTION_INCOMING) {
+        res = R.layout.message_left;
+    } else if (direction == DIRECTION_OUTGOING) {
+        res = R.layout.message_right;
+    }
+    convertView = layoutInflater.inflate(res, viewGroup, false);
+}</pre>
+
+	<p>Then, get the text body from the message and display it in the txtMessage text view of either messaging_right.xml or messaging_left.xml</p>
+	
+	<pre>
+Message message = messages.get(i).first;
+
+TextView txtMessage = (TextView) convertView.findViewById(R.id.txtMessage);
+txtMessage.setText(message.getTextBody());
+
+return convertView;</pre>
+
+		<p>Congratulations, you did it! Run your app on two android devices, log in as two different users, and chat with each other.</p>
     </body>
 </html>
 
