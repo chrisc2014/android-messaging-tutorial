@@ -210,11 +210,7 @@ if (currentUser != null) {
     
         <pre>&lt;activity android:name=".ListUsersActivity"&gt;&lt;/activity&gt;</pre>
     
-        <p>The last bit of housekeeping before we use our new activity is to delete the boilerplate
-            code that we won't be using. In ListUsersActivity.java, there are three methods: onCreate,
-            onCreateOptionsMenu, and onOptionsItemSelected. We will only use onCreate, so just delete
-            the other two. And lastly, change ListUsersActivity to extend Activity, not
-            ActionBarActivity.</p>
+        <p>Make sure that ListUsersActivity extends Activity:</p>
 
         <pre>public class ListUsersActivity extends Activity</pre>
 
@@ -231,6 +227,9 @@ startActivity(intent);</pre>
             the app if you want to log out. ListUsersActivity should look like this right now:</p>
 
         <img src="images/list-users-activity-blank.png" id="list-users-activity-blank" />
+
+        <p>There is a <a href="http://addlink">bonus at the end of this tutorial</a> that gives you the code for a logout button.
+        Head there now if you want to easily log users in and out!</p>
 
         <p>Note: It is tempting to manually add test users through the Parse data browser. Please do
             not do this. These users will not be registered with the Sinch client, and you will not
@@ -916,6 +915,57 @@ return convertView;</pre>
 
 		<p>Congratulations, you did it! Run your app on two android devices, log in as two
             different users, and chat with each other.</p>
+
+        <h2>BONUS: ADD A LOGOUT BUTTON</h2>
+
+        <p>If you're bothered by uninstalling the app every time you want to log out, this is for you! Add the button in activity_list_users.xml. Here is the updated layout:</p>
+
+        <pre>
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.sinch.messagingtutorial.app.ListUsersActivity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" &gt;
+
+    &lt;Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:id="@+id/logoutButton"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/dark_gray"
+        android:textSize="24sp"
+        android:padding="15dp"
+        android:textColor="@color/sinch_purple" /&gt;
+
+    &lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="16dp"
+              android:background="@color/off_white"
+              android:id="@+id/usersListView"&gt;
+    &lt;/ListView&gt;
+
+&lt;/LinearLayout&gt;</pre>
+
+    <p>Then add an onClickListener to ListUsersActivity.onCreate that will log the user out and start LoginActivity:</p>
+
+    <pre>
+private Button logoutButton;
+logoutButton = (Button) findViewById(R.id.logoutButton);
+logoutButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        ParseUser.logOut();
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+    }
+});
+    </pre>
+    
+    <p>All done - enjoy!</p>
     </body>
 </html>
 
