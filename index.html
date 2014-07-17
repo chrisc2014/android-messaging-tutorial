@@ -54,8 +54,9 @@
         <p>Parse requires internet and access to the network state. To grant these permissions,
             in AndroidManifest.xml, add the following permissions above the &lt;application&gt; tag:</p>
 
-        <pre>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-    &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;</pre>
+        <pre>
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;</pre>
 
         <p>Now, we need to initialize Parse every time our user opens the app. Therefore, it makes
             sense to initialize Parse in the onCreate method of our LoginActivity. Add the following
