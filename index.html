@@ -231,13 +231,16 @@ Intent intent = new Intent(getApplicationContext(), ListUsersActivity.class);
 startActivity(intent);</pre>
     
         <p>Take a moment here to run your app and verify that your intent works in all three scenarios
-            (already logged in, log in, sign up). Since we don't have a log out button, uninstall the
-            app if you want to log out. ListUsersActivity should look like this right now:</p>
+            (already logged in, log in, sign up). Since we don't have a log out button, simply uninstall
+            the app if you want to log out. ListUsersActivity should look like this right now:</p>
 
         <img src="images/list-users-activity-blank.png" id="list-users-activity-blank" />
 
-        <p>This would be a good time to head time to your Parse data browser and manually add a few
-            test users to populate our list.</p>
+        <p>Note: It is tempting to manually add test users through the Parse data browser. Please do
+            not do this. These users will not be registered with the Sinch client, and you will not
+            be able to send messages to them later unless you log in to the app as them. The best
+            thing to do right now is to logout (by uninstalling) and create new test accounts
+            through the app.</p>
 
         <img src="images/add-test-users.png" id="add-test-users" />
 
