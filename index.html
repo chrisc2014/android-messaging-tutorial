@@ -490,6 +490,7 @@ private ListView usersListView;</code></pre>
         }
     }
 
+    //Methods that you can call from MessagingActivity
     public class MessageServiceInterface extends Binder {
         public void sendMessage(String recipientUserId, String textBody) {
             MessageService.this.sendMessage(recipientUserId, textBody);
@@ -501,6 +502,10 @@ private ListView usersListView;</code></pre>
 
         public void removeMessageClientListener(MessageClientListener listener) {
             MessageService.this.removeMessageClientListener(listener);
+        }
+
+        public boolean isSinchClientStarted() {
+            return MessageService.this.isSinchClientStarted();
         }
     }
 }</code></pre>
@@ -527,7 +532,7 @@ Intent intent = new Intent(getApplicationContext(), ListUsersActivity.class)
 startActivity(intent);</code></pre>
 
           <p>You'll notice that this code is quite repetitive. In the finished project, I have
-              refactored this code to reduce repitition, but it is not necessary for your app to work.
+              refactored this code to reduce repetition, but it is not necessary for your app to work.
               If you want to do what I did, declare intent and serviceIntent inside loginActivity:</p>
 
         <pre><code class="java">private Intent intent;
@@ -717,6 +722,15 @@ public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
     //Define the messaging service and add a listener
     messageService = (MessageService.MessageServiceInterface) iBinder;
     messageService.addMessageClientListener(this);
+
+    //Notify the user if they are not connected to the Sinch client.
+    //Otherwise, for example, if your app key & secret are typed
+    //in wrong, the user might keep hitting the send button
+    //with no feedback
+    if (!messageService.isSinchClientStarted()) {
+        Toast.makeText(this, "The message client did not start."
+        ,Toast.LENGTH_LONG).show();
+    }
 }
 
 @Override
