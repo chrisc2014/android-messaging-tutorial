@@ -41,9 +41,9 @@
 
         <h2>USER LOGIN WITH PARSE</h2>
 
-        <p>We are going to use a service called <a href="http://www.parse.com" target="_blank">Parse</a>
-            to keep track of our users. Parse will allow us to securely log in our users, and save user
-            data, without having our own servers. Sign up for an account
+        <p>You are going to use a service called <a href="http://www.parse.com" target="_blank">Parse</a>
+            to keep track of your users. Parse will allow you to securely log in your users, and save user
+            data, without having your own servers. Sign up for an account
             <a href="https://www.parse.com/#signup" target="_blank">here</a>.</p>
 
 
@@ -62,8 +62,8 @@
         <pre><code class="xml">&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
 &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;</code></pre>
 
-        <p>Now, we need to initialize Parse every time our user opens the app. Therefore, it makes
-            sense to initialize Parse in the onCreate method of our LoginActivity. Add the following
+        <p>Now, you need to initialize Parse every time a user opens the app. Therefore, it makes
+            sense to initialize Parse in the onCreate method of LoginActivity. Add the following
             line of code, and replace the placeholders with the application id and client key you
             got from Parse.</p>
 
@@ -84,7 +84,7 @@ private Button loginButton;</code></pre>
 
         <p>(You will also need to import android.widget.Button)</p>
 
-        <p>Now, we can define the login and signup buttons and set up an onClickListener for each of
+        <p>Now, you will define the login and signup buttons and set up an onClickListener for each of
         the buttons. Add the following code at the end of your onCreate method in LoginActivity.java.
         For the time being, a short toast message will appear when you click either of the buttons.</p>
 
@@ -112,7 +112,7 @@ signUpButton.setOnClickListener(new View.OnClickListener() {
         <p>Time to run the app! This time when you run it, try clicking both of the buttons to make
             sure the correct toast messages appear.</p>
 
-        <p>Let's get started on implementing logic into those button clicks. First, we need to store
+        <p>Let's get started on implementing logic into those button clicks. First, you need to store
             what the user typed into the username and password fields. Declare the username and
             password fields, as well as variables to store their values in.</p>
     
@@ -130,8 +130,8 @@ passwordField = (EditText) findViewById(R.id.loginPassword);</code></pre>
         <p>Note: From now on, I will not specify all of the classes you need to import. Android Studio
             will suggest imports for you, and instruct you on how to add them.</p>
 
-        <p>We will use the Parse method logInInBackground to securely log our users in. We just need
-            to grab the text typed in the username and password fields, and pass it to this method,
+        <p>You will use the Parse method logInInBackground to securely log your users in. You just need
+            to grab the text typed in the username and password fields, pass it to this method,
             and display a toast message if Parse throws an exception. The following code belongs in
             your loginButton onClickListener.</p>
     
@@ -150,8 +150,8 @@ ParseUser.logInInBackground(username, password, new LogInCallback() {
     }
 });</code></pre>
     
-        <p>For new users that want to sign up, we use the Parse method signUpInBackgroud. Again,
-        we grab the text typed in the username and password fields, create a new ParseUser,
+        <p>For new users that want to sign up, you will use the Parse method signUpInBackgroud. Again,
+        you grab the text typed in the username and password fields, create a new ParseUser,
         sign the user up, and then display a toast message if Parse throws an error. Put this
         code in your signUpButton onClickListener.</p>
     
@@ -180,8 +180,8 @@ user.signUpInBackground(new SignUpCallback() {
         is the name of your app, and navigate to the data browser. You should see one entry in
         your database with the username you just typed in!</p>
     
-        <p>One last login-related bit of code that we'll add is to check to see if a user is already
-        logged in when the app is launched. If a user is already logged in, we don't even want to
+        <p>One last login-related bit of code that you will add is to check to see if a user is already
+        logged in when the app is launched. If a user is already logged in, you don't want to
         load the layout, so put this code above the setContentView method.</p>
     
         <pre><code class="java">ParseUser currentUser = ParseUser.getCurrentUser();
@@ -191,17 +191,17 @@ if (currentUser != null) {
     
         <h2>DISPLAY USER LIST</h2>
 
-        <p>You now have three different spots in this onCreate method where we need to start the next
+        <p>You now have three different spots in this onCreate method where you need to start the next
             activity. This would probably be a good time to create that new activity! The next activity
-            that users will go to is a list of all users using the app. It will look like this when we're done:</p>
+            that users will go to is a list of all users using the app. It will look like this when you're done:</p>
 
         <img src="images/user-list.png" id="list-users-screenshot" />
 
-        <p>To create our new activity, follow the steps on the screenshot below.</p>
+        <p>To create your new activity, follow the steps on the screenshot below.</p>
 
         <img src="images/new-class.png" class="new-class" />
 
-        <p>We will name this class ListUsersActivity, since it will show a list of all users.</p>
+        <p>Name this class ListUsersActivity, since it will show a list of all users.</p>
 
         <p>You'll also need to add ListUsersActivity to AndroidManifest.xml:</p>
     
@@ -211,7 +211,7 @@ if (currentUser != null) {
 
         <pre><code class="java">public class ListUsersActivity extends Activity</code></pre>
 
-        <p>Let's head back to LoginActivity.java now. In all three places where we have left a "start
+        <p>Head back to LoginActivity.java now. In all three places where you have left a "start
             new activity" comment, you will want to add the following code. This defines a new intent,
             and then starts the list users activity.</p>
 
@@ -219,7 +219,7 @@ if (currentUser != null) {
 startActivity(intent);</code></pre>
     
         <p>Take a moment here to run your app and verify that your intent works in all three scenarios
-            (already logged in, log in, sign up). Since we don't have a log out button, simply uninstall
+            (already logged in, log in, sign up). Since you don't have a log out button, simply uninstall
             the app if you want to log out. ListUsersActivity should look like this right now:</p>
 
         <img src="images/list-users-activity-blank.png" id="list-users-activity-blank" />
@@ -231,12 +231,11 @@ startActivity(intent);</code></pre>
         <p>Note: It is tempting to manually add test users through the Parse data browser. Please do
             not do this. These users will not be registered with the Sinch client, and you will not
             be able to send messages to them later unless you log in to the app as them. The best
-            thing to do right now is to logout (by uninstalling) and create new test accounts
-            through the app.</p>
+            thing to do right now is to logout and create new test accounts through the app.</p>
 
         <img src="images/add-test-users.png" id="add-test-users" />
 
-        <p>We want activity_list_users.xml to be a ListView, so replace the code currently in there
+        <p>activity_list_users.xml should be a ListView, so replace the code currently in there
             with this:</p>
 
         <pre><code class="xml">&lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -249,7 +248,7 @@ startActivity(intent);</code></pre>
     android:id="@+id/usersListView"&gt;
 &lt;/ListView&gt;</code></pre>
     
-        <p>We also need to create an xml file to tell our app how to display each item of the list.
+        <p>You also need to create an xml file to tell your app how to display each item of the list.
         In the layout directory, create a new file and name it user_list_item.xml.
         It will contain only the following text view:</p>
     
@@ -262,12 +261,12 @@ startActivity(intent);</code></pre>
     android:layout_height="fill_parent"
     android:textSize="20sp" /&gt;</code></pre>
     
-        <p>Moving back to ListUsersActivity.java, we are going to add just one line of code to the end
-            of our onCreate method:</p>
+        <p>Moving back to ListUsersActivity.java, you are going to add just one line of code to the end
+            of your onCreate method:</p>
 
         <pre><code class="java">setConversationsList();</code></pre>
 
-        <p>Now, let's define setConversationsList:</p>
+        <p>Now, you are going to define setConversationsList:</p>
     
         <pre><code class="java">private void setConversationsList() {
     currentUserId = ParseUser.getCurrentUser().getObjectId();
@@ -297,12 +296,12 @@ startActivity(intent);</code></pre>
 }</code></pre>
 
         <p>Whew - there's a lot going on in that method. Let's make sure we're all on the same page.
-        First, we store the current user's id, and create an empty array of strings (for the user
-        names). Then, we query our Parse database for all users that are not the current user (since
-        it would be silly to chat with yourself!) Once we have a list of ParseUsers, we use a for
-        loop to go through and store their name as a string. Finally, we define the list view and
-        adapter, and tell our app that nameArrayAdapter should be used to populate usersListView.
-        If Parse returns an error, we will show a toast message to our user.</p>
+        First, you store the current user's id, and create an empty array of strings (for the user
+        names). Then, you query your Parse database for all users that are not the current user (since
+        it would be silly to chat with yourself!) Once you have a list of ParseUsers, you use a for
+        loop to go through and store their name as a string. Finally, you define the list view and
+        adapter, and tell your app that nameArrayAdapter should be used to populate usersListView.
+        If Parse returns an error, you will show a toast message to the user.</p>
   
         <p>And, if you didn't already declare the variables from setConversationsList, here's quick copy
         and paste code:</p>
@@ -312,11 +311,11 @@ private ArrayAdapter&lt;String&gt; namesArrayAdapter;
 private ArrayList&lt;String&gt; names;
 private ListView usersListView;</code></pre>
 
-    <p>Now, we are going to make the list of users clickable. If you click on the name of a user,
-      we want it to open a private instant messaging conversation with them.</p>
+    <p>Now, you are going to make the list of users clickable. If you click on the name of a user,
+      it should open a private instant messaging conversation with that user.</p>
 
-    <p>To make the list clickable, we are going to use the method setOnItemClickListener. For now,
-      we will just display a toast message when an item is clicked. We'll go back in a few
+    <p>To make the list clickable, you are going to use the method setOnItemClickListener. For now,
+      you will just display a toast message when an item is clicked. You'll go back in a few
       minutes and add the logic to open a conversation. Add the following block of code in
       setConversationsList, after populating the list, only if populating the list succeeds:</p>
 
@@ -370,7 +369,7 @@ private ListView usersListView;</code></pre>
     private MessageClient messageClient = null;
     private String currentUserId;
 
-    //Gets called when we start the service from LoginActivity
+    //Gets called when you start the service from LoginActivity
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -398,7 +397,7 @@ private ListView usersListView;</code></pre>
 
         sinchClient.addSinchClientListener(this);
 
-        //This line is necessary to have messaging in our app!
+        //This line is necessary to have messaging in your app!
         sinchClient.setSupportMessaging(true);
         sinchClient.setSupportActiveConnectionInBackground(true);
 
@@ -439,7 +438,7 @@ private ListView usersListView;</code></pre>
         sinchClient = null;
     }
 
-    //Called when we bind this to an activity (we'll get there soon)
+    //Called when you bind this to an activity (I'll get there soon)
     @Override
     public IBinder onBind(Intent intent) {
         return serviceInterface;
@@ -516,8 +515,8 @@ private ListView usersListView;</code></pre>
 
           <pre><code class="xml">&lt;service android:name=".MessageService"&gt;&lt;/service&gt;</code></pre>
 
-          <p>Now, we are going to start the service from LoginActivity. In the three possible places to
-              start ListUsersActivity, we want to also start the message service. (Refresher - these
+          <p>Now, you will start the service from LoginActivity. In the three possible places to
+              start ListUsersActivity, you want to also start the message service. (Refresher - these
               three places are if a user is already logged in, if they log in, or if they sign up.) It
               should now look like so:</p>
 
@@ -551,13 +550,13 @@ startActivity(intent);</code></pre>
 
           <h2>THE MESSAGING ACTIVITY</h2>
 
-          <p>In this section, we are going to create and implement the messaging activity.
+          <p>In this section, you are going to create and implement the messaging activity.
               You will end up with a screen that looks like this:</p>
 
           <img src="images/messaging.png" id="messaging-activity" />
 
           <p>I'll remind you that the layouts and graphics to create this view are already
-              included in your skeleton project.</p>
+              included in the skeleton project.</p>
 
           <p>To create MessagingActivity, right click on the folder with your package name,
               and select 'New' --> 'Java Class'</p>
@@ -579,11 +578,10 @@ startActivity(intent);</code></pre>
 
         <pre><code class="xml">&lt;activity android:name=".MessagingActivity"&gt;&lt;/activity&gt;</code></pre>
 
-        <p>Now we can go back to ListUsersActivity and fill-in the logic to open a conversation
-          with the user that was clicked on. We left a note for ourselves that says "Look up
-          user id and open conversation." In place of that comment, call a new method that
-          we're going to call openConversation, and pass in the array of names and position
-          that was clicked.</p>
+        <p>Next, go back to ListUsersActivity and fill-in the logic to open a conversation
+          with the user that was clicked on. You left a note that says "Look up
+          user id and open conversation." In place of that comment, call a new method, openConversation, 
+          and pass in the array of names and position that was clicked.</p>
 
         <pre><code class="java">openConversation(names, i)</code></pre>
 
@@ -594,9 +592,9 @@ startActivity(intent);</code></pre>
     //and the integer of what position was clicked
 }</code></pre>
       
-        <p>We will use a parse query to look up the user id based on the username we have.
+        <p>You will use a parse query to look up the user id based on the username you have.
           The following code will get the username that was clicked on, and then look up
-          which ParseUser has that username. If it returns with no errors, we will (just
+          which ParseUser has that username. If it returns with no errors, you will (just
           for now) display a toast message with the username and user id.</p>
       
         <pre><code class="java">ParseQuery&lt;ParseUser&gt; query = ParseUser.getQuery();
@@ -618,7 +616,7 @@ query.findInBackground(new FindCallback&lt;ParseUser&gt;() {
 
         <p>Run your app and try clicking on names to make sure everything is working properly.</p>
       
-        <p>Now, let's start MessagingActivity and pass along the id of who we want to message
+        <p>Now, start MessagingActivity and pass along the id of who you want to message
             with. Put the following in place of the temporary toast message from above:</p>
       
         <pre><code class="java">Intent intent = new Intent(getApplicationContext(), MessagingActivity.class);
@@ -632,17 +630,17 @@ startActivity(intent);</code></pre>
 
         <h2>SENDING MESSAGES</h2>
 
-        <p>We'll start by getting the recipientId from the intent.
+        <p>Start by getting the recipientId from the intent.
           Add this code into your onCreate method:</p>
       
         <pre><code class="java">Intent intent = getIntent();
 recipientId = intent.getStringExtra("RECIPIENT_ID");</code></pre>
 
-        <p>And of course don't forget to declare recipientId:</p>
+        <p>And, of course, don't forget to declare recipientId:</p>
       
         <pre><code class="java">private String recipientId;</code></pre>
 
-        <p>Next, we want set up an onClickListener for the send button. So first, declare the send
+        <p>Next, set up an onClickListener for the send button. So first, declare the send
             button, and then define it in onCreate:</p>
 
         <pre><code class="java">private Button sendButton;
@@ -655,7 +653,7 @@ sendButton.setOnClickListener(new View.OnClickListener() {
     }
 });</code></pre>
       
-        <p>Now, let's write the method sendMessage.</p>
+        <p>Now, write the method sendMessage.</p>
       
         <pre><code class="java">private void sendMessage() {
     messageBody = messageBodyField.getText().toString();
@@ -664,14 +662,14 @@ sendButton.setOnClickListener(new View.OnClickListener() {
         return;
     }
 
-    //Here is where we will actually send the message throught Sinch
+    //Here is where you will actually send the message throught Sinch
     Toast.makeText(this, "Sending message! recipientId: " + recipientId
         + " Message: " + messageBody, Toast.LENGTH_LONG).show();
     messageBodyField.setText("");
 }</code></pre>
       
-        <p>Try it out! As long as everything is working now, we can move on to binding
-            MessagingActivity to MessageService so we can actually send and receive messages.</p>
+        <p>Try it out! As long as everything is working now, you can move on to binding
+            MessagingActivity to MessageService so you can actually send and receive messages.</p>
     
         <img src="images/message-thumbs-up.png" id="message-thumbs-up" />
       
@@ -694,8 +692,8 @@ private void doUnbind() {
     unbindService(this);
 }</code></pre>
 
-        <p>We want doUnbind to get called when when the activity is destroyed,
-          so we will override that method:</p>
+        <p>You want doUnbind to get called when when the activity is destroyed,
+          so you should override onDestroy:</p>
 
 <pre><code class="java">@Override
 public void onDestroy() {
@@ -756,7 +754,7 @@ public void onShouldSendPushData(MessageClient client, Message message,
     //Intentionally left blank
 }</code></pre>
     
-        <p>Now we are ready to send the message! In MessagingActivity.sendMessage,
+        <p>Now you are ready to send the message! In MessagingActivity.sendMessage,
             remove the toast message that says the message has been sent, and add this:</p>
     
         <pre><code class="java">messageService.sendMessage(recipientId, messageBody);</code></pre>
@@ -776,25 +774,25 @@ public void onShouldSendPushData(MessageClient client, Message message,
 
         <img src="images/two-androids.png" id="two-androids" />
 
-        <p>The last piece of functionality we have to tackle is displaying the messages.
-            To start, we will define the listView where we want to display the messaging
+        <p>The last piece of functionality you have to tackle is displaying the messages.
+            To start, define the listView where you want to display the messaging
             conversation. Do this in the onCreate method of MessagingActivity:</p>
         
         <pre><code class="java">private ListView messagesList;
 messagesList = (ListView) findViewById(R.id.listMessages);</code></pre>
 
-		<p>We want to build a custom adapter to display these messages, so we
-            can use our cool message_right.xml and message_left.xml layouts.
+		<p>You are going to build a custom adapter to display these messages, so you
+            can use your cool message_right.xml and message_left.xml layouts.
             Create a new class and call it MessageAdapter. This extends the class BaseAdapter,
-            which will help us display a beautiful list:</p>
+            which will help your app display a beautiful list:</p>
 		
 		<pre><code class="java">public class MessageAdapter extends BaseAdapter {}</code></pre>
 		
-		<p>There are several methods that we must implement in MessageAdapter,
-            since we are extending BaseAdapter:</p>
+		<p>There are several methods that you must implement in MessageAdapter,
+            since you are extending BaseAdapter:</p>
 		
-		<pre><code class="java">//For every message, we define a corresponding integer (0 or 1)
-//That describes if the message is incoming or outgoing
+		<pre><code class="java">//For every message, define a corresponding integer (0 or 1)
+//that describes if the message is incoming or outgoing
 private List&lt;Pair&lt;Message, Integer&gt;&gt; messages;
 private LayoutInflater layoutInflater;
 
@@ -803,7 +801,7 @@ public MessageAdapter(Activity activity) {
     messages = new ArrayList&lt;Pair&lt;Message, Integer&gt;&gt;();
 }
 
-//Gets called every time we update the view with an
+//Gets called every time you update the view with an
 //incoming or outgoing message
 public void addMessage(Message message, int direction) {
     messages.add(new Pair(message, direction));
@@ -828,18 +826,18 @@ public long getItemId(int i) {
 
 @Override
 public View getView(int i, View convertView, ViewGroup viewGroup) {
-    //This is where our custom logic to display message_right.xml
+    //This is where your custom logic to display message_right.xml
     //and message_left.xml will go
     return convertView;
 }</code></pre>
         
-    	<p>Then, go back to MessagingActivity and tell our app that our custom adapter goes
-            with the messageList view we defined:</p>
+    	<p>Then, go back to MessagingActivity and tell your app that the custom adapter goes
+            with the messageList view you defined:</p>
     	
     	<pre><code class="java">messageAdapter = new MessageAdapter(this);
 messagesList.setAdapter(messageAdapter);</code></pre>
 
-		<p>Only a few more steps! In onIncomingMessage and onOutgoingMessage, we want to call
+		<p>Only a few more steps! In onIncomingMessage and onOutgoingMessage, you want to call
             MessageAdapter.addMessage, which will add a message to our messages list,
             and update the UI.</p>
       
@@ -850,14 +848,14 @@ messageAdapter.addMessage(message, MessageAdapter.DIRECTION_INCOMING);
 messageAdapter.addMessage(message, MessageAdapter.DIRECTION_OUTGOING);</code></pre>
 
 	  	<p>You'll need to declare DIRECTION_INCOMING and DIRECTION_OUTGOING in MessageAdapter.
-            The direction of each message will tell us whether we should use messaging_right.xml
+            The direction of each message will tell you whether you should use messaging_right.xml
             or messaging_left.xml</p>
     
     	<pre><code class="java">public static final int DIRECTION_INCOMING = 0;
 public static final int DIRECTION_OUTGOING = 1;</code></pre>
 
-		<p>Lastly, let's tackle getView. This is where we put the logic for our custom adapter.
-            First, get the direction (incoming or outgoing) of the message we're about to display.
+		<p>Lastly, let's tackle getView. This is where you put the logic for the custom adapter.
+            First, get the direction (incoming or outgoing) of the message you're about to display.
             Then, choose either the right or left messaging bubble layout, and inflate it.</p>
 		
 		<pre><code class="java">int direction = messages.get(i).second;
