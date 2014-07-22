@@ -384,12 +384,12 @@ private ListView usersListView;</code></pre>
     }
 
     //Start the Sinch client
-    public void startSinchClient(String userName) {
+    public void startSinchClient(String username) {
         //Build the Sinch client with the current user id,
         //app key, app secret, and environment host
         sinchClient = Sinch.getSinchClientBuilder()
                            .context(this)
-                           .userId(userName)
+                           .userId(username)
                            .applicationKey(APP_KEY)
                            .applicationSecret(APP_SECRET)
                            .environmentHost(ENVIRONMENT)
