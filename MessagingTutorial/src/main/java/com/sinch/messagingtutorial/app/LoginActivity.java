@@ -43,10 +43,10 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
-        signUpButton = (Button) findViewById(R.id.signupButton);
-        usernameField = (EditText) findViewById(R.id.loginUsername);
-        passwordField = (EditText) findViewById(R.id.loginPassword);
+        loginButton = findViewById(R.id.loginButton);
+        signUpButton = findViewById(R.id.signupButton);
+        usernameField = findViewById(R.id.loginUsername);
+        passwordField = findViewById(R.id.loginPassword);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
